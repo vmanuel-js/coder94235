@@ -9,6 +9,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { app } from "./config";
+import toast from "react-hot-toast";
 
 const db = getFirestore(app);
 
@@ -62,6 +63,12 @@ export const getItem = async (id) => {
 
 // Agregar data
 export const createOrder = async (order) => {
-  const docRef = await addDoc(collection(db, "orders"), order);
-  console.log("Document written with ID: ", docRef.id);
+  try {
+    const docRef = await addDoc(collection(db, "orders"), order);
+    toast.success(`Gracias por tu compra, el ID de tu orden: ${docRef.id}`);
+    return true;
+  } catch (error) {
+    toast.error(`Ocurrió un error: ${error.code}`);
+    return false;
+  }
 };
