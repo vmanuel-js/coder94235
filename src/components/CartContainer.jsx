@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router";
 
 function CartContainer() {
-  const { carrito, getTotal } = useContext(CartContext);
+  const { carrito, getTotal, deleteItem } = useContext(CartContext);
   const total = getTotal();
   const navigate = useNavigate();
 
@@ -17,8 +17,14 @@ function CartContainer() {
     <div className="mt-5 d-flex flex-column align-items-center justify-content-center">
       <ListGroup className="w-50">
         {carrito.map((item) => (
-          <ListGroup.Item key={item.id}>
+          <ListGroup.Item
+            key={item.id}
+            className="d-flex justify-content-between"
+          >
             {item.name} x {item.count} ---- {item.price}
+            <Button variant="danger" onClick={() => deleteItem(item.id)}>
+              X
+            </Button>
           </ListGroup.Item>
         ))}
       </ListGroup>

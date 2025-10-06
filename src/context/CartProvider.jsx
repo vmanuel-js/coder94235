@@ -13,6 +13,11 @@ function CartProvider({ children }) {
     setCarrito([...carrito, item]);
   };
 
+  const deleteItem = (id) => {
+    const updateCart = carrito.filter((item) => item.id !== id);
+    setCarrito(updateCart);
+  };
+
   const getQuantity = () => {
     const quantities = carrito.map((item) => item.count);
     const total = quantities.reduce((acc, current) => acc + current, 0);
@@ -27,11 +32,15 @@ function CartProvider({ children }) {
     return total;
   };
 
-  return (
-    <CartContext.Provider value={{ addToCart, getQuantity, carrito, getTotal }}>
-      {children}
-    </CartContext.Provider>
-  );
+  const value = {
+    addToCart,
+    getQuantity,
+    carrito,
+    getTotal,
+    deleteItem,
+  };
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export default CartProvider;
