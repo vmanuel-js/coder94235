@@ -32,12 +32,23 @@ function CartProvider({ children }) {
     return total;
   };
 
+  const aumentarCantidad = (id) => {
+    const carritoActualizado = carrito.map((item) => {
+      if (item.id === id) {
+        return { ...item, count: item.count + 1 };
+      }
+      return item;
+    });
+    setCarrito(carritoActualizado);
+  };
+
   const value = {
     addToCart,
     getQuantity,
     carrito,
     getTotal,
     deleteItem,
+    aumentarCantidad,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

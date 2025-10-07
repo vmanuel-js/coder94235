@@ -5,7 +5,8 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router";
 
 function CartContainer() {
-  const { carrito, getTotal, deleteItem } = useContext(CartContext);
+  const { carrito, getTotal, deleteItem, aumentarCantidad } =
+    useContext(CartContext);
   const total = getTotal();
   const navigate = useNavigate();
 
@@ -22,6 +23,8 @@ function CartContainer() {
             className="d-flex justify-content-between"
           >
             {item.name} x {item.count} ---- {item.price}
+            <Button onClick={() => aumentarCantidad(item.id)}>+</Button>
+            <Button>-</Button>
             <Button variant="danger" onClick={() => deleteItem(item.id)}>
               X
             </Button>
